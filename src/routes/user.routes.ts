@@ -4,7 +4,7 @@ const userRoutes = Router();
 
 userRoutes.post("");
 userRoutes.get("");
-userRoutes.patch(":id");
-userRoutes.delete(":id");
+userRoutes.patch("/:id");
+userRoutes.delete("/:id");
 
 export default userRoutes;

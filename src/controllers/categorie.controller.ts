@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getCategorieService } from "../services/categorie/getCategorie.service";
+import { getRealEstatesByCategorieService } from "../services/categorie/getRealEstatesByCategorie.service";
 import { postCategorieService } from "../services/categorie/postCategorie.service";
 
 const postCategorieController = async (
@@ -9,12 +9,12 @@ const postCategorieController = async (
   const user = await postCategorieService();
   return res.status(201).json(user);
 };
-const getCategorieController = async (
+const getRealEstatesByCategorieController = async (
   req: Request,
   res: Response
 ): Promise<any> => {
-  const users = await getCategorieService();
+  const users = await getRealEstatesByCategorieService();
   return res.status(200).json(users);
 };
 
-export { postCategorieController, getCategorieController };
+export { postCategorieController, getRealEstatesByCategorieController };

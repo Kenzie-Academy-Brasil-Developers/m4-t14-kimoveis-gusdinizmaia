@@ -1,10 +1,8 @@
 import { Router } from "express";
+import { postLoginController } from "../controllers/login.controller";
 
 const loginRoutes = Router();
 
-loginRoutes.post("");
-loginRoutes.get("");
-loginRoutes.patch(":id");
-loginRoutes.delete(":id");
+loginRoutes.post("", postLoginController);
 
 export default loginRoutes;

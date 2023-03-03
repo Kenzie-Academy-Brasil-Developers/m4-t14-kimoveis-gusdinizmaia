@@ -9,9 +9,9 @@ import { Router } from "express";
 const routes = Router();
 
 routes.use("/users", userRoutes);
-routes.use("login", loginRoutes);
-routes.use("login", categorieRoutes);
-routes.use("login", realEstateRoutes);
-routes.use("login", scheduleRoutes);
+routes.use("/login", loginRoutes);
+routes.use("/categories", categorieRoutes);
+routes.use("/realEstate", realEstateRoutes);
+routes.use("/schedules", scheduleRoutes);
 
 export default routes;

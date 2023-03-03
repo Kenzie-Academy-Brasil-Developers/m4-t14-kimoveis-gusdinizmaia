@@ -1,10 +1,12 @@
 import { Router } from "express";
+import {
+  getSchedulesByRealEstateController,
+  postScheduleController,
+} from "../controllers/schedule.controller";
 
 const scheduleRoutes = Router();
 
-scheduleRoutes.post("");
-scheduleRoutes.get("");
-scheduleRoutes.patch(":id");
-scheduleRoutes.delete(":id");
+scheduleRoutes.post("", postScheduleController);
+scheduleRoutes.get("/realEstate/:id", getSchedulesByRealEstateController);
 
 export default scheduleRoutes;

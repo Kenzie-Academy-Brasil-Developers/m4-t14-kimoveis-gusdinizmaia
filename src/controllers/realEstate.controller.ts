@@ -9,7 +9,7 @@ const postRealEstateController = async (
   const user = await postRealEstateService();
   return res.status(201).json(user);
 };
-const getRealEstateController = async (
+const getAllRealEstatesController = async (
   req: Request,
   res: Response
 ): Promise<any> => {
@@ -17,4 +17,4 @@ const getRealEstateController = async (
   return res.status(200).json(users);
 };
 
-export { postRealEstateController, getRealEstateController };
+export { postRealEstateController, getAllRealEstatesController };
