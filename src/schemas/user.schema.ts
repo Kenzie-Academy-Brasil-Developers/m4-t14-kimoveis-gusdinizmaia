@@ -1,4 +1,4 @@
-import { boolean, number, string, z } from "zod";
+import { boolean, date, number, string, z } from "zod";
 
 const userSchema = z.object({
   id: number(),
@@ -6,9 +6,9 @@ const userSchema = z.object({
   email: string().max(45).optional(),
   admin: boolean(),
   password: string().max(120),
-  createdAt: string(),
-  updateAt: string(),
-  deletedAt: string().nullish(),
+  createdAt: date(),
+  updateAt: date(),
+  deletedAt: date().nullish(),
 });
 
 export { userSchema };
