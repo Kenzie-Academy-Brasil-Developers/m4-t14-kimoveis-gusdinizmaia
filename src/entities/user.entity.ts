@@ -1,4 +1,7 @@
+import { getRounds, hashSync } from "bcrypt";
 import {
+  BeforeInsert,
+  BeforeUpdate,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -24,7 +27,7 @@ class User {
   admin: boolean;
 
   @Column({ length: 120 })
-  password: number;
+  password: string;
 
   @CreateDateColumn({ type: "timestamp" })
   createdAt: string;
@@ -37,6 +40,15 @@ class User {
 
   @OneToMany(() => Schedule, (schedule) => schedule.user)
   schedules: Schedule[];
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  hashPassword() {
+    const withoutEncrypted = getRounds(this.password);
+    if (!withoutEncrypted) {
+      this.password = hashSync(this.password, 10);
+    }
+  }
 }
 
 export { User };

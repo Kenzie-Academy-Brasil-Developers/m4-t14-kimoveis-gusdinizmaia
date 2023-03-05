@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { iReturnUserCreate, iUser } from "../interfaces/user.interface";
 import { deleteUserService } from "../services/user/deleteUser.service";
 import { getAllUsersService } from "../services/user/getAllUsers.service";
 import { patchUserService } from "../services/user/patchUser.service";
@@ -8,7 +9,7 @@ const postUserController = async (
   req: Request,
   res: Response
 ): Promise<any> => {
-  const user = await postUserService();
+  const user: iReturnUserCreate = await postUserService(req.body);
   return res.status(201).json(user);
 };
 const getAllUsersController = async (

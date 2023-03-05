@@ -1,14 +1,19 @@
 import { boolean, date, number, string, z } from "zod";
 
-const userSchema = z.object({
+const userCreateSchema = z.object({
   id: number(),
   name: string().max(45),
-  email: string().max(45).optional(),
+  email: string().max(45),
   admin: boolean(),
   password: string().max(120),
+});
+
+const userSchema = userCreateSchema.extend({
   createdAt: date(),
   updateAt: date(),
   deletedAt: date().nullish(),
 });
 
-export { userSchema };
+const returnUserCreate = userSchema.omit({ password: true });
+
+export { userSchema, userCreateSchema, returnUserCreate };

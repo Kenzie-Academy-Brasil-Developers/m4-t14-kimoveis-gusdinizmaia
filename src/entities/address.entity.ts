@@ -13,7 +13,7 @@ class Address {
   zipCode: string;
 
   @Column({ length: 6, nullable: true })
-  number: number;
+  number: string;
 
   @Column({ length: 20 })
   city: string;
