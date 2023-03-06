@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Schema, ZodError, ZodType } from "zod";
+import { ZodType } from "zod";
 
 const verifyData =
   (schema: ZodType) =>
