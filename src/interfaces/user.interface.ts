@@ -1,12 +1,14 @@
 import { z } from "zod";
 import {
-  returnUserCreate,
+  returnUserSchema,
   userCreateSchema,
+  userPatchSchema,
   userSchema,
 } from "../schemas/user.schema";
 
 type iUser = z.infer<typeof userSchema>;
 type iUserCreate = z.infer<typeof userCreateSchema>;
-type iReturnUserCreate = z.infer<typeof returnUserCreate>;
+type iUserPatch = z.infer<typeof userPatchSchema>;
+type iReturnUser = z.infer<typeof returnUserSchema>;
 
-export { iUser, iUserCreate, iReturnUserCreate };
+export { iUser, iUserCreate, iUserPatch, iReturnUser };

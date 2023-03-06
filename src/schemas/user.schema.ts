@@ -8,12 +8,25 @@ const userCreateSchema = z.object({
   password: string().max(120),
 });
 
+const userPatchSchema = userCreateSchema.partial().omit({
+  id: true,
+  admin: true,
+});
+
 const userSchema = userCreateSchema.extend({
   createdAt: date(),
   updateAt: date(),
   deletedAt: date().nullish(),
 });
 
-const returnUserCreate = userSchema.omit({ password: true });
+const returnUserSchema = userSchema.omit({ password: true });
 
-export { userSchema, userCreateSchema, returnUserCreate };
+const returnUsersSchema = z.array(returnUserSchema);
+
+export {
+  userSchema,
+  userCreateSchema,
+  userPatchSchema,
+  returnUserSchema,
+  returnUsersSchema,
+};
