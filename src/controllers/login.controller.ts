@@ -5,8 +5,11 @@ const postLoginController = async (
   req: Request,
   res: Response
 ): Promise<any> => {
-  const user = await postLoginService();
-  return res.status(201).json(user);
+  const user = req.body;
+
+  const token = await postLoginService(user);
+
+  return res.status(201).json(token);
 };
 
 export { postLoginController };

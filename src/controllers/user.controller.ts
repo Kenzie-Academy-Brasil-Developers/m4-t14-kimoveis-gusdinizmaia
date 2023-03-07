@@ -8,7 +8,7 @@ import { postUserService } from "../services/user/postUser.service";
 const postUserController = async (
   req: Request,
   res: Response
-): Promise<any> => {
+): Promise<Response> => {
   const newUser = req.body;
 
   const user: iReturnUser = await postUserService(newUser);
@@ -18,7 +18,7 @@ const postUserController = async (
 const getAllUsersController = async (
   req: Request,
   res: Response
-): Promise<any> => {
+): Promise<Response> => {
   const users: iReturnUser[] = await getAllUsersService();
 
   return res.status(200).json(users);
@@ -27,7 +27,7 @@ const getAllUsersController = async (
 const patchUserController = async (
   req: Request,
   res: Response
-): Promise<any> => {
+): Promise<Response> => {
   const updateUser = req.body;
   const id = req.user.id;
 
@@ -39,7 +39,7 @@ const patchUserController = async (
 const deleteUserController = async (
   req: Request,
   res: Response
-): Promise<any> => {
+): Promise<Response> => {
   const id = req.user.id;
 
   await deleteUserService(id);

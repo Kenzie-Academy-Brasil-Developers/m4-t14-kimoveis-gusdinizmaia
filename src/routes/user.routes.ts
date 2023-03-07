@@ -7,6 +7,7 @@ import {
 } from "../controllers/user.controller";
 import { User } from "../entities";
 import { verifyData } from "../middlewares/verifyData.middleware";
+import { verifyToken } from "../middlewares/verifyToken.middleware";
 import { verifyUniqueKeys } from "../middlewares/verifyUniqueKey.middleware";
 import { userCreateSchema, userPatchSchema } from "../schemas/user.schema";
 
@@ -18,7 +19,7 @@ userRoutes.post(
   verifyUniqueKeys(User, "email"),
   postUserController
 );
-userRoutes.get("", getAllUsersController);
+userRoutes.get("", verifyToken, getAllUsersController);
 userRoutes.patch("/:id", verifyData(userPatchSchema), patchUserController);
 userRoutes.delete("/:id", deleteUserController);
 
