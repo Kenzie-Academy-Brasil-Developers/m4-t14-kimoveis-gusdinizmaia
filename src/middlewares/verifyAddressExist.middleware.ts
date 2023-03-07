@@ -4,7 +4,7 @@ import { AppDataSource } from "../data-source";
 import { User } from "../entities";
 import { AppError } from "../errors/appError";
 
-const verifyUserExist = async (
+const verifyAddressExist = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -22,4 +22,4 @@ const verifyUserExist = async (
   return next();
 };
 
-export { verifyUserExist };
+export { verifyAddressExist };

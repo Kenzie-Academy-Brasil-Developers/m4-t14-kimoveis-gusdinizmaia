@@ -29,7 +29,7 @@ const patchUserController = async (
   res: Response
 ): Promise<Response> => {
   const updateUser = req.body;
-  const id = req.user.id;
+  const id = parseInt(req.params.id);
 
   const user: iReturnUser = await patchUserService(updateUser, id);
 

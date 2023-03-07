@@ -3,9 +3,12 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { User } from "../entities";
 import { AppError } from "../errors/appError";
-import { iUser } from "../interfaces/user.interface";
 
-const verifyAdmin = async (req: Request, res: Response, next: NextFunction) => {
+const verifyAdmin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   const idUser = req.user.id;
 
   const userRepo: Repository<User> = AppDataSource.getRepository(User);
@@ -15,6 +18,8 @@ const verifyAdmin = async (req: Request, res: Response, next: NextFunction) => {
   if (!user?.admin) {
     throw new AppError("não é admin", 400);
   }
+
+  return next();
 };
 
 export { verifyAdmin };

@@ -10,7 +10,7 @@ const patchUserService = async (
 ): Promise<iReturnUser> => {
   const repoUser: Repository<User> = AppDataSource.getRepository(User);
 
-  const oldUser = repoUser.findOneBy({ id: 1 });
+  const oldUser = await repoUser.findOneBy({ id: id });
 
   const newUser = repoUser.create({ ...oldUser, ...user });
 

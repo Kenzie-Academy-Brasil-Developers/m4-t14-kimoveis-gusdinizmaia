@@ -1,16 +1,20 @@
 import { boolean, number, string, z } from "zod";
+import { addressSchema } from "./address.schema";
 
-const realEstateSchema = z.object({
-  id: number(),
-  sold: boolean(),
+const realEstateCreateSchema = z.object({
   value: number(),
   size: number().int(),
   city: string().max(20),
   state: string().max(2),
-  createdAt: string(),
-  updateAt: string(),
-  addressId: number().int(),
-  categoryId: number().int().optional(),
+  address: addressSchema,
+  categoryId: number(),
 });
 
-export { realEstateSchema };
+const realEstateSchema = realEstateCreateSchema.extend({
+  id: number(),
+  sold: boolean(),
+  createdAt: string(),
+  updateAt: string(),
+});
+
+export { realEstateCreateSchema, realEstateSchema };

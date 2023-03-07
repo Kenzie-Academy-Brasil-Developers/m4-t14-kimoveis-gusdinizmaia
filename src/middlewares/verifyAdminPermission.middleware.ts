@@ -3,9 +3,8 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { User } from "../entities";
 import { AppError } from "../errors/appError";
-import { iUser } from "../interfaces/user.interface";
 
-const verifyAuthUpdate = async (
+const verifyAdminPermission = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -24,4 +23,4 @@ const verifyAuthUpdate = async (
   return next();
 };
 
-export { verifyAuthUpdate };
+export { verifyAdminPermission };
