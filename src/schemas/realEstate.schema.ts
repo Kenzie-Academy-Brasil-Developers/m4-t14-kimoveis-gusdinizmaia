@@ -4,10 +4,8 @@ import { addressSchema } from "./address.schema";
 const realEstateCreateSchema = z.object({
   value: number(),
   size: number().int(),
-  city: string().max(20),
-  state: string().max(2),
   address: addressSchema,
-  categoryId: number(),
+  categoryId: number().optional(),
 });
 
 const realEstateSchema = realEstateCreateSchema.extend({

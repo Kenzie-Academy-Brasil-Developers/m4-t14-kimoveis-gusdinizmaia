@@ -11,7 +11,7 @@ const verifyUniqueKey =
     const findKey = await repository.findOneBy({ [key]: req.body[key] });
 
     if (findKey) {
-      throw new AppError(`The ${key} already exist`, 409);
+      throw new AppError(`The ${key} já esta sendo usado`, 409);
     }
 
     return next();

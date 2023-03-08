@@ -7,6 +7,7 @@ import {
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from "typeorm";
 import { Address } from "./address.entity";
@@ -33,12 +34,13 @@ class RealEstate {
   @UpdateDateColumn({ type: "timestamp" })
   updateAt: string;
 
-  @OneToOne(() => Address, (address) => address.realEstate)
+  @OneToOne(() => Address, (address) => address.realEstate, { nullable: false })
   @JoinColumn()
+  @Unique(["address"])
   address: Address;
 
-  @ManyToOne(() => Category)
-  @JoinColumn()
+  @ManyToOne(() => Category, (category) => category.realEstates)
+  @JoinColumn({ name: "categoryId" })
   category: number;
 
   @OneToMany(() => Schedule, (schedules) => schedules.realEstate)

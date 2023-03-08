@@ -1,6 +1,6 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
-import { RealEstate } from "../../entities";
+import { Address, Category, RealEstate } from "../../entities";
 import {
   iRealEstate,
   iRealEstateCreate,
@@ -11,12 +11,26 @@ const postRealEstateService = async (
 ): Promise<iRealEstate> => {
   const repoRealEstate: Repository<RealEstate> =
     AppDataSource.getRepository(RealEstate);
+  const repoAddress: Repository<Address> = AppDataSource.getRepository(Address);
+  const repoCategory: Repository<Category> =
+    AppDataSource.getRepository(Category);
 
-  const newRealEstate = repoRealEstate.create(realEstate);
+  const newAddress = repoAddress.create(realEstate.address);
 
-  await repoRealEstate.save(newRealEstate);
+  await repoAddress.save(newAddress);
 
-  return newRealEstate;
+  const category = await repoCategory.findOneBy({
+    id: realEstate?.categoryId,
+  });
+
+  const newRealEstate = await repoRealEstate
+    .createQueryBuilder()
+    .insert()
+    .values([{ ...realEstate, address: newAddress, category: category?.id }])
+    .returning("*")
+    .execute();
+
+  return newRealEstate.raw[0];
 };
 
 export { postRealEstateService };
