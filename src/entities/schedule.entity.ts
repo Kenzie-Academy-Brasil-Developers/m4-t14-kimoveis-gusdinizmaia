@@ -19,13 +19,13 @@ class Schedule {
   @Column({ type: "time" })
   hour: string;
 
-  @ManyToOne(() => RealEstate, (realEstate) => realEstate.schedules, {
+  @ManyToOne(() => RealEstate, (realEstate) => realEstate.schedule, {
     nullable: false,
   })
   @JoinColumn({ name: "realEstateId" })
   realEstate: RealEstate;
 
-  @ManyToOne(() => User, (user) => user.schedules, { nullable: false })
+  @ManyToOne(() => User, (user) => user.schedule, { nullable: false })
   @JoinColumn({ name: "userId" })
   user: User;
 }

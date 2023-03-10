@@ -9,7 +9,7 @@ import { User } from "../entities";
 import { verifyAdmin } from "../middlewares/verifyAdmin.middleware";
 import { verifyAdminPermission } from "../middlewares/verifyAdminPermission.middleware";
 import { verifyData } from "../middlewares/verifyData.middleware";
-import { verifyUserExist } from "../middlewares/verifyExist.middleware";
+import { verifyUserExist } from "../middlewares/verifyUserExist.middleware";
 import { verifyToken } from "../middlewares/verifyToken.middleware";
 import { verifyUniqueKey } from "../middlewares/verifyUniqueKey.middleware";
 import { userCreateSchema, userPatchSchema } from "../schemas/user.schema";
@@ -19,7 +19,7 @@ const userRoutes = Router();
 userRoutes.post(
   "",
   verifyData(userCreateSchema),
-  verifyUniqueKey(User, "email"),
+  verifyUniqueKey(User, "email", "Email"),
   postUserController
 );
 userRoutes.get("", verifyToken, verifyAdmin, getAllUsersController);

@@ -5,14 +5,15 @@ import { AppError } from "../errors/appError";
 const findId = async (
   repo: EntityTarget<ObjectLiteral>,
   id: number,
-  messageError: string
-) => {
-  const repository: Repository<any> = AppDataSource.getRepository(repo);
+  name: string
+): Promise<any> => {
+  const repository: Repository<ObjectLiteral> =
+    AppDataSource.getRepository(repo);
 
   const searchId = await repository.findOneBy({ id: id });
 
   if (!searchId) {
-    throw new AppError(messageError, 404);
+    throw new AppError(`${name} not found`, 404);
   }
 
   return searchId;

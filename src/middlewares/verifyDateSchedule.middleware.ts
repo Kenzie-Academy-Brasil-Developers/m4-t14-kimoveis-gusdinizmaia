@@ -25,7 +25,10 @@ const verifyDateSchedule = async (
     .getCount();
 
   if (findSchedule) {
-    throw new AppError("não pode visitar no mesmo horario", 404);
+    throw new AppError(
+      "User schedule to this real estate at this date and time already exists",
+      409
+    );
   }
 
   return next();

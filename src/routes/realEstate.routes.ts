@@ -15,9 +15,9 @@ const realEstateRoutes = Router();
 realEstateRoutes.post(
   "",
   verifyToken,
-  verifyAdmin,
   verifyData(realEstateCreateSchema),
-  verifyUniqueKey(RealEstate, "address"),
+  verifyAdmin,
+  verifyUniqueKey(RealEstate, "address", "Address"),
   postRealEstateController
 );
 realEstateRoutes.get("", getAllRealEstatesController);

@@ -13,18 +13,18 @@ const postLoginService = async (user: iUserLogin) => {
   const findUser = await userRepo.findOneBy({ email: user.email });
 
   if (!findUser) {
-    throw new AppError("user not exist", 404);
+    throw new AppError("Invalid credentials", 401);
   }
 
   const verifyPassword = await compare(user.password, findUser.password);
 
   if (!verifyPassword) {
-    throw new AppError("não autorizado", 400);
+    throw new AppError("Invalid credentials", 401);
   }
 
   const token = jwt.sign(
     { email: findUser.email },
-    String(process.env.SECRET_KEY),
+    String(process.env.SECRET_KEY!),
     { expiresIn: process.env.EXPIRES_IN, subject: String(findUser.id) }
   );
 

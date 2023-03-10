@@ -1,26 +1,27 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Category } from "../../entities";
-import { iCategory } from "../../interfaces/category.interface";
+import { iRealEstateByCategory } from "../../interfaces/category.interface";
 
 const getRealEstatesByCategoryService = async (
   id: number
-): Promise<iCategory[]> => {
+): Promise<iRealEstateByCategory> => {
   const repoCategory: Repository<Category> =
     AppDataSource.getRepository(Category);
 
   const categories = await repoCategory
     .createQueryBuilder("category")
-    .select(["realEstate", "category"])
+    .select(["category", "realEstate"])
     .innerJoin(
-      "category.realEstates",
+      "category.realEstate",
       "realEstate",
-      "realEstate.categoryId = :id",
+      "realEstate.category = :id",
       { id: id }
     )
+    .where("category.id = :categoryId", { categoryId: id })
     .getMany();
 
-  return categories;
+  return categories[0];
 };
 
 export { getRealEstatesByCategoryService };

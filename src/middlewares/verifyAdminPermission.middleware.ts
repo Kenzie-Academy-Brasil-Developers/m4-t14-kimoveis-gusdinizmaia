@@ -17,7 +17,7 @@ const verifyAdminPermission = async (
   const user = await userRepo.findOneBy({ id: idUser });
 
   if (!user?.admin && idUser !== idUserUpdate) {
-    throw new AppError("não é admin pra fazer isso", 400);
+    throw new AppError("Insufficient permission", 403);
   }
 
   return next();

@@ -29,17 +29,17 @@ class User {
   @Column({ length: 120 })
   password: string;
 
-  @CreateDateColumn({ type: "timestamp" })
+  @CreateDateColumn({ type: "date" })
   createdAt: string;
 
-  @UpdateDateColumn({ type: "timestamp" })
+  @UpdateDateColumn({ type: "date" })
   updateAt: string;
 
-  @DeleteDateColumn({ type: "timestamp", nullable: true })
-  deleteAt: string | null;
+  @DeleteDateColumn({ type: "date" })
+  deleteAt: string;
 
   @OneToMany(() => Schedule, (schedule) => schedule.user)
-  schedules: Schedule[];
+  schedule: Schedule[];
 
   @BeforeInsert()
   @BeforeUpdate()

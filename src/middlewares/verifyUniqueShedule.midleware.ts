@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
-import { RealEstate, Schedule } from "../entities";
+import { Schedule } from "../entities";
 import { AppError } from "../errors/appError";
 
 const verifyUniqueShedule = async (
@@ -28,7 +28,10 @@ const verifyUniqueShedule = async (
     .getCount();
 
   if (findSchedule) {
-    throw new AppError("não pode visitar 2 ao mesmo horario", 404);
+    throw new AppError(
+      "Schedule to this real estate at this date and time already exists",
+      409
+    );
   }
 
   return next();

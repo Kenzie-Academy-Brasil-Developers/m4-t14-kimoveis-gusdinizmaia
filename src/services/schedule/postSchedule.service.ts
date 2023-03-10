@@ -1,10 +1,8 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { RealEstate, Schedule, User } from "../../entities";
-import {
-  iSchedule,
-  iScheduleCreate,
-} from "../../interfaces/schedule.interface";
+import { iScheduleCreate } from "../../interfaces/schedule.interface";
+import { findId } from "../../middlewares/findId.middleware";
 import { returnUserSchema } from "../../schemas/user.schema";
 
 const postScheduleService = async (
@@ -14,18 +12,13 @@ const postScheduleService = async (
   const repoSchedule: Repository<Schedule> =
     AppDataSource.getRepository(Schedule);
 
-  const repoRealEstate: Repository<RealEstate> =
-    AppDataSource.getRepository(RealEstate);
+  let user = await findId(User, userId, "User");
 
-  const repoUser: Repository<User> = AppDataSource.getRepository(User);
-
-  let user = await repoUser.findOneBy({
-    id: userId,
-  });
-
-  const realEstate = await repoRealEstate.findOneBy({
-    id: schedule.realEstateId,
-  });
+  const realEstate = await findId(
+    RealEstate,
+    schedule.realEstateId,
+    "RealEstate"
+  );
 
   const newSchedule = repoSchedule.create({
     ...schedule,
@@ -35,9 +28,7 @@ const postScheduleService = async (
 
   await repoSchedule.save(newSchedule);
 
-  const returnUser = returnUserSchema.parse(user);
-
-  return { ...newSchedule, user: returnUser };
+  return { message: "Schedule created" };
 };
 
 export { postScheduleService };

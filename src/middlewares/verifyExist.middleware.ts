@@ -1,25 +1,23 @@
 import { NextFunction, Request, Response } from "express";
-import { Repository } from "typeorm";
+import { EntityTarget, ObjectLiteral, Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
-import { User } from "../entities";
 import { AppError } from "../errors/appError";
 
-const verifyUserExist = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const repository: Repository<User> = AppDataSource.getRepository(User);
+const verifyExist =
+  (repo: EntityTarget<ObjectLiteral>, name: string) =>
+  async (req: Request, res: Response, next: NextFunction) => {
+    const repository: Repository<ObjectLiteral> =
+      AppDataSource.getRepository(repo);
 
-  const id = parseInt(req.params.id);
+    const id = parseInt(req.params.id);
 
-  const findKey = await repository.findOneBy({ id: id });
+    const find = await repository.findOneBy({ id: id });
 
-  if (!findKey) {
-    throw new AppError("The user not exist", 404);
-  }
+    if (!find) {
+      throw new AppError(`${name} not found`, 404);
+    }
 
-  return next();
-};
+    return next();
+  };
 
-export { verifyUserExist };
+export { verifyExist };

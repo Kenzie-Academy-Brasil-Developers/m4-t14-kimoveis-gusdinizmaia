@@ -5,6 +5,7 @@ import {
   iRealEstate,
   iRealEstateCreate,
 } from "../../interfaces/realEstate.interface";
+import { findId } from "../../middlewares/findId.middleware";
 
 const postRealEstateService = async (
   realEstate: iRealEstateCreate
@@ -12,16 +13,12 @@ const postRealEstateService = async (
   const repoRealEstate: Repository<RealEstate> =
     AppDataSource.getRepository(RealEstate);
   const repoAddress: Repository<Address> = AppDataSource.getRepository(Address);
-  const repoCategory: Repository<Category> =
-    AppDataSource.getRepository(Category);
 
   const newAddress = repoAddress.create(realEstate.address);
 
   await repoAddress.save(newAddress);
 
-  const category = await repoCategory.findOneBy({
-    id: realEstate?.categoryId,
-  });
+  const category = await findId(Category, realEstate.categoryId!, "Category");
 
   const newRealEstate = await repoRealEstate
     .createQueryBuilder()

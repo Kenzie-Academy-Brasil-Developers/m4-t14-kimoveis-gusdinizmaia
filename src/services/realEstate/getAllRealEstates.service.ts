@@ -10,7 +10,6 @@ const getAllRealEstatesService = async (): Promise<iRealEstate[]> => {
   const realEstates = await repoRealEstate.find({
     relations: {
       address: true,
-      category: true,
     },
   });
 

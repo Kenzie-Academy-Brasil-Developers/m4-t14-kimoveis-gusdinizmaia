@@ -1,23 +1,23 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
-import { Schedule } from "../../entities";
-import { iSchedule } from "../../interfaces/schedule.interface";
+import { RealEstate } from "../../entities";
 
-const getSchedulesByRealEstateService = async (
-  id: number
-): Promise<iSchedule[]> => {
-  const repoSchedule: Repository<Schedule> =
-    AppDataSource.getRepository(Schedule);
+const getSchedulesByRealEstateService = async (id: number): Promise<any> => {
+  const repoRealEstate: Repository<RealEstate> =
+    AppDataSource.getRepository(RealEstate);
 
-  const schedules = await repoSchedule
-    .createQueryBuilder("schedule")
-    .select()
-    .innerJoin("schedule.realEstate", "realEstate", "realEstate.id = :id", {
+  const realEstates = await repoRealEstate
+    .createQueryBuilder("realEstate")
+    .select(["address", "category", "schedule", "realEstate", "user"])
+    .innerJoin("realEstate.schedule", "schedule", "schedule.realEstate = :id", {
       id: id,
     })
-    .getRawMany();
+    .leftJoin("schedule.user", "user", "schedule.user = user.id")
+    .leftJoin("realEstate.address", "address")
+    .leftJoin("realEstate.category", "category")
+    .getMany();
 
-  return schedules;
+  return realEstates[0];
 };
 
 export { getSchedulesByRealEstateService };

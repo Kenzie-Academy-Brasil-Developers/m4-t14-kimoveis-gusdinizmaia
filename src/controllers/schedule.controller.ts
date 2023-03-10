@@ -20,7 +20,7 @@ const getSchedulesByRealEstateController = async (
 ): Promise<Response> => {
   const id = parseInt(req.params.id);
 
-  const schedules: iSchedule[] = await getSchedulesByRealEstateService(id);
+  const schedules = await getSchedulesByRealEstateService(id);
 
   return res.status(200).json(schedules);
 };

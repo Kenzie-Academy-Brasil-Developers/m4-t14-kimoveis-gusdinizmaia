@@ -22,16 +22,16 @@ class RealEstate {
   @Column({ default: false })
   sold: boolean;
 
-  @Column({ type: "decimal" })
-  value: number;
+  @Column({ type: "decimal", scale: 2, precision: 12, default: 0 })
+  value: number | string;
 
   @Column({ type: "integer" })
   size: number;
 
-  @CreateDateColumn({ type: "timestamp" })
+  @CreateDateColumn({ type: "date" })
   createdAt: string;
 
-  @UpdateDateColumn({ type: "timestamp" })
+  @UpdateDateColumn({ type: "date" })
   updateAt: string;
 
   @OneToOne(() => Address, (address) => address.realEstate, { nullable: false })
@@ -39,12 +39,12 @@ class RealEstate {
   @Unique(["address"])
   address: Address;
 
-  @ManyToOne(() => Category, (category) => category.realEstates)
+  @ManyToOne(() => Category, (category) => category.realEstate)
   @JoinColumn({ name: "categoryId" })
   category: Category;
 
   @OneToMany(() => Schedule, (schedules) => schedules.realEstate)
-  schedules: Schedule[];
+  schedule: Schedule[];
 }
 
 export { RealEstate };
