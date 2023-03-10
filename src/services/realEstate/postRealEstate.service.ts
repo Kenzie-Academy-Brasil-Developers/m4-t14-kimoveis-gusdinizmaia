@@ -26,7 +26,7 @@ const postRealEstateService = async (
   const newRealEstate = await repoRealEstate
     .createQueryBuilder()
     .insert()
-    .values([{ ...realEstate, address: newAddress, category: category?.id }])
+    .values([{ ...realEstate, address: newAddress, category: category! }])
     .returning("*")
     .execute();
 

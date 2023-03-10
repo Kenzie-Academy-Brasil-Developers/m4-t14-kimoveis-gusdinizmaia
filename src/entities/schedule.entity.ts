@@ -3,8 +3,6 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { RealEstate } from "./realEstate.entity";
@@ -18,18 +16,18 @@ class Schedule {
   @Column({ type: "date" })
   date: string;
 
-  @Column({ type: "date" })
+  @Column({ type: "time" })
   hour: string;
 
   @ManyToOne(() => RealEstate, (realEstate) => realEstate.schedules, {
     nullable: false,
   })
-  @JoinColumn()
-  realEstate: number;
+  @JoinColumn({ name: "realEstateId" })
+  realEstate: RealEstate;
 
   @ManyToOne(() => User, (user) => user.schedules, { nullable: false })
-  @JoinColumn()
-  user: number;
+  @JoinColumn({ name: "userId" })
+  user: User;
 }
 
 export { Schedule };

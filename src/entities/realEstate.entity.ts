@@ -41,7 +41,7 @@ class RealEstate {
 
   @ManyToOne(() => Category, (category) => category.realEstates)
   @JoinColumn({ name: "categoryId" })
-  category: number;
+  category: Category;
 
   @OneToMany(() => Schedule, (schedules) => schedules.realEstate)
   schedules: Schedule[];

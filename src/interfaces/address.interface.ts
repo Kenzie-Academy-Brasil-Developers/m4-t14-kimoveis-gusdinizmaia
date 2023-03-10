@@ -1,6 +1,7 @@
 import { z } from "zod";
-import { addressSchema } from "../schemas/address.schema";
+import { addressCreateSchema, addressSchema } from "../schemas/address.schema";
 
+type iAddressCreate = z.infer<typeof addressCreateSchema>;
 type iAddress = z.infer<typeof addressSchema>;
 
-export { iAddress };
+export { iAddressCreate, iAddress };

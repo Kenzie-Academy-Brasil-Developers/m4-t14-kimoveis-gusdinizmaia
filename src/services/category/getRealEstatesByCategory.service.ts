@@ -9,14 +9,16 @@ const getRealEstatesByCategoryService = async (
   const repoCategory: Repository<Category> =
     AppDataSource.getRepository(Category);
 
-  const categories = repoCategory.find({
-    where: { id: id },
-    relations: { realEstates: true },
-  });
-
-  // const categories = await repoCategory.createQueryBuilder()
-  // .select([]).innerJoin('categories', 'c').innerJoin('real_estates', 're')
-  // .where('re.category = :id', {id: id})
+  const categories = await repoCategory
+    .createQueryBuilder("category")
+    .select(["realEstate", "category"])
+    .innerJoin(
+      "category.realEstates",
+      "realEstate",
+      "realEstate.categoryId = :id",
+      { id: id }
+    )
+    .getMany();
 
   return categories;
 };

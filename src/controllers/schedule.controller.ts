@@ -10,7 +10,7 @@ const postScheduleController = async (
   const schedule = req.body;
   const userId = req.user.id;
 
-  const newSchedule: iSchedule = await postScheduleService(schedule, userId);
+  const newSchedule = await postScheduleService(schedule, userId);
 
   return res.status(201).json(newSchedule);
 };
@@ -18,9 +18,11 @@ const getSchedulesByRealEstateController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const users = await getSchedulesByRealEstateService();
+  const id = parseInt(req.params.id);
 
-  return res.status(200).json(users);
+  const schedules: iSchedule[] = await getSchedulesByRealEstateService(id);
+
+  return res.status(200).json(schedules);
 };
 
 export { postScheduleController, getSchedulesByRealEstateController };

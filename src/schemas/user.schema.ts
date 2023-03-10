@@ -1,10 +1,10 @@
-import { boolean, date, number, string, z } from "zod";
+import { z } from "zod";
 
 const userCreateSchema = z.object({
-  name: string().max(45),
-  email: string().max(45),
-  admin: boolean(),
-  password: string().max(120),
+  name: z.string().max(45),
+  email: z.string().max(45),
+  admin: z.boolean(),
+  password: z.string().max(120),
 });
 
 const userPatchSchema = userCreateSchema.partial().omit({
@@ -12,10 +12,10 @@ const userPatchSchema = userCreateSchema.partial().omit({
 });
 
 const userSchema = userCreateSchema.extend({
-  id: number(),
-  createdAt: date(),
-  updateAt: date(),
-  deletedAt: date().nullish(),
+  id: z.number(),
+  createdAt: z.date(),
+  updateAt: z.date(),
+  deletedAt: z.date().nullish(),
 });
 
 const returnUserSchema = userSchema.omit({ password: true });
@@ -23,8 +23,8 @@ const returnUserSchema = userSchema.omit({ password: true });
 const returnUsersSchema = z.array(returnUserSchema);
 
 const userLoginSchema = z.object({
-  email: string().max(45),
-  password: string().max(120),
+  email: z.string().max(45),
+  password: z.string().max(120),
 });
 
 export {

@@ -1,9 +1,9 @@
-import { number, string, z } from "zod";
+import { z } from "zod";
 
 const categoryCreateSchema = z.object({
-  name: string().max(45),
+  name: z.string().max(45),
 });
 
-const categorySchema = categoryCreateSchema.extend({ id: number() });
+const categorySchema = categoryCreateSchema.extend({ id: z.number() });
 
 export { categoryCreateSchema, categorySchema };

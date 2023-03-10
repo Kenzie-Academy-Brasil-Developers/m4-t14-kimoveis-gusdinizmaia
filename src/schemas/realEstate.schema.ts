@@ -1,18 +1,21 @@
-import { boolean, number, string, z } from "zod";
-import { addressSchema } from "./address.schema";
+import { z } from "zod";
+import { addressCreateSchema, addressSchema } from "./address.schema";
+import { categorySchema } from "./category.schema";
 
 const realEstateCreateSchema = z.object({
-  value: number(),
-  size: number().int(),
-  address: addressSchema,
-  categoryId: number().optional(),
+  value: z.number(),
+  size: z.number().int(),
+  address: addressCreateSchema,
+  categoryId: z.number().int().optional(),
 });
 
 const realEstateSchema = realEstateCreateSchema.extend({
-  id: number(),
-  sold: boolean(),
-  createdAt: string(),
-  updateAt: string(),
+  id: z.number(),
+  sold: z.boolean(),
+  createdAt: z.string(),
+  updateAt: z.string(),
+  address: addressSchema,
+  categoryId: categorySchema.optional(),
 });
 
 export { realEstateCreateSchema, realEstateSchema };
