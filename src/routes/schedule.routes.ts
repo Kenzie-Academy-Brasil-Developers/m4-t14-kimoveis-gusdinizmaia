@@ -9,8 +9,9 @@ import { verifyDateSchedule } from "../middlewares/verifyDateSchedule.middleware
 import { scheduleCreateSchema } from "../schemas/schedule.schema";
 import { verifyUniqueShedule } from "../middlewares/verifyUniqueShedule.midleware";
 import { verifyExist } from "../middlewares/verifyExist.middleware";
-import { RealEstate, Schedule } from "../entities";
+import { RealEstate } from "../entities";
 import { verifyAdmin } from "../middlewares/verifyAdmin.middleware";
+import { verifyDayAndHour } from "../middlewares/verifyDayAndHour.middleware";
 
 const scheduleRoutes = Router();
 
@@ -27,6 +28,7 @@ scheduleRoutes.get(
   verifyToken,
   verifyAdmin,
   verifyExist(RealEstate, "RealEstate"),
+  verifyDayAndHour,
   getSchedulesByRealEstateController
 );
 

@@ -1,28 +1,17 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entities";
-import {
-  iReturnUser,
-  iReturnUserWithAdmin,
-  iUserCreate,
-} from "../../interfaces/user.interface";
-import {
-  returnUserWithAdmin,
-  returnUserWithoutAdmin,
-} from "../../schemas/user.schema";
+import { iReturnUser, iUserCreate } from "../../interfaces/user.interface";
+import { returnUserSchema } from "../../schemas/user.schema";
 
-const postUserService = async (
-  user: iUserCreate
-): Promise<iReturnUser | iReturnUserWithAdmin> => {
+const postUserService = async (user: iUserCreate): Promise<iReturnUser> => {
   const userRepo: Repository<User> = AppDataSource.getRepository(User);
 
   const newUser: iUserCreate = userRepo.create(user);
 
   await userRepo.save(newUser);
 
-  const schema = user?.admin ? returnUserWithAdmin : returnUserWithoutAdmin;
-
-  const userReturn: iReturnUser | iReturnUserWithAdmin = schema.parse(newUser);
+  const userReturn: iReturnUser = returnUserSchema.parse(newUser);
 
   return userReturn;
 };

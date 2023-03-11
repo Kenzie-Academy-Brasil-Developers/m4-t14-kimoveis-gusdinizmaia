@@ -1,8 +1,6 @@
 import { z } from "zod";
 import {
   returnUserSchema,
-  returnUserWithAdmin,
-  returnUserWithoutAdmin,
   userCreateSchema,
   userLoginSchema,
   userPatchSchema,
@@ -13,14 +11,6 @@ type iUser = z.infer<typeof userSchema>;
 type iUserCreate = z.infer<typeof userCreateSchema>;
 type iUserPatch = z.infer<typeof userPatchSchema>;
 type iReturnUser = z.infer<typeof returnUserSchema>;
-type iReturnUserWithAdmin = z.infer<typeof returnUserWithAdmin>;
 
 type iUserLogin = z.infer<typeof userLoginSchema>;
-export {
-  iUser,
-  iUserCreate,
-  iUserPatch,
-  iReturnUser,
-  iReturnUserWithAdmin,
-  iUserLogin,
-};
+export { iUser, iUserCreate, iUserPatch, iReturnUser, iUserLogin };

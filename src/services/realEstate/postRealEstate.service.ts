@@ -7,6 +7,7 @@ import {
   iRealEstateCreate,
 } from "../../interfaces/realEstate.interface";
 import { findId } from "../../middlewares/findId.middleware";
+import { realEstateCreateSchema } from "../../schemas/realEstate.schema";
 
 const postRealEstateService = async (
   realEstate: iRealEstateCreate
@@ -15,17 +16,16 @@ const postRealEstateService = async (
     AppDataSource.getRepository(RealEstate);
   const repoAddress: Repository<Address> = AppDataSource.getRepository(Address);
 
-  // const findAddress = await repoAddress.findOneBy(realEstate.address);
+  const findAddress = await repoAddress.findOneBy(realEstate.address);
+  const category = await findId(Category, realEstate.categoryId!, "Category");
 
-  // if (findAddress) {
-  //   throw new AppError("Address already exists", 409);
-  // }
+  if (findAddress) {
+    throw new AppError("Address already exists", 409);
+  }
 
   const newAddress = repoAddress.create(realEstate.address);
 
   await repoAddress.save(newAddress);
-
-  const category = await findId(Category, realEstate.categoryId!, "Category");
 
   const newRealEstate = repoRealEstate.create({
     ...realEstate,

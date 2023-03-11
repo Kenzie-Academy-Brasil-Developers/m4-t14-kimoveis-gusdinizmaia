@@ -8,7 +8,7 @@ const deleteUserService = async (id: number) => {
 
   const user = await userRepo.findOne({ where: { id: id }, withDeleted: true });
 
-  if (user?.deletedAt) {
+  if (user?.deletedAt !== null) {
     throw new AppError("não é possivel deletar", 666);
   }
   await userRepo.softRemove(user!);

@@ -18,15 +18,6 @@ const userSchema = userCreateSchema.extend({
   deletedAt: z.string().nullish(),
 });
 
-const returnUserWithAdmin = userSchema.omit({
-  password: true,
-});
-
-const returnUserWithoutAdmin = userSchema.omit({
-  password: true,
-  admin: true,
-});
-
 const returnUserSchema = userSchema.omit({ password: true });
 
 const returnUsersSchema = z.array(returnUserSchema);
@@ -41,8 +32,6 @@ export {
   userCreateSchema,
   userPatchSchema,
   returnUsersSchema,
-  returnUserWithAdmin,
-  returnUserWithoutAdmin,
   returnUserSchema,
   userLoginSchema,
 };
