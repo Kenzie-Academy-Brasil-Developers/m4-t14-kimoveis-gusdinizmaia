@@ -33,10 +33,10 @@ class User {
   createdAt: string;
 
   @UpdateDateColumn({ type: "date" })
-  updateAt: string;
+  updatedAt: string;
 
   @DeleteDateColumn({ type: "date" })
-  deleteAt: string;
+  deletedAt: string;
 
   @OneToMany(() => Schedule, (schedule) => schedule.user)
   schedule: Schedule[];

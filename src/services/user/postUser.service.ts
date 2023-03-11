@@ -20,7 +20,7 @@ const postUserService = async (
 
   await userRepo.save(newUser);
 
-  const schema = user.admin ? returnUserWithoutAdmin : returnUserWithAdmin;
+  const schema = user?.admin ? returnUserWithAdmin : returnUserWithoutAdmin;
 
   const userReturn: iReturnUser | iReturnUserWithAdmin = schema.parse(newUser);
 

@@ -13,7 +13,7 @@ const verifyAdmin = async (
 
   const userRepo: Repository<User> = AppDataSource.getRepository(User);
 
-  let user = await userRepo.findOneBy({ id: idUser });
+  const user = await userRepo.findOneBy({ id: idUser });
 
   if (user?.admin === false) {
     throw new AppError("Insufficient permission", 403);

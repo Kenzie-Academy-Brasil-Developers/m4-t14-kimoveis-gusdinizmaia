@@ -32,7 +32,7 @@ class RealEstate {
   createdAt: string;
 
   @UpdateDateColumn({ type: "date" })
-  updateAt: string;
+  updatedAt: string;
 
   @OneToOne(() => Address, (address) => address.realEstate, { nullable: false })
   @JoinColumn()
@@ -44,7 +44,7 @@ class RealEstate {
   category: Category;
 
   @OneToMany(() => Schedule, (schedules) => schedules.realEstate)
-  schedule: Schedule[];
+  schedules: Schedule[];
 }
 
 export { RealEstate };

@@ -14,24 +14,22 @@ const userPatchSchema = userCreateSchema.partial().omit({
 const userSchema = userCreateSchema.extend({
   id: z.number(),
   createdAt: z.string(),
-  updateAt: z.string(),
-  deleteAt: z.string().nullish(),
+  updatedAt: z.string(),
+  deletedAt: z.string().nullish(),
 });
 
 const returnUserWithAdmin = userSchema.omit({
   password: true,
-  email: true,
-  name: true,
-  admin: true,
 });
 
 const returnUserWithoutAdmin = userSchema.omit({
   password: true,
+  admin: true,
 });
 
-const returnUsersSchema = z.array(returnUserWithoutAdmin);
+const returnUserSchema = userSchema.omit({ password: true });
 
-const returnUserSchema = returnUserWithoutAdmin;
+const returnUsersSchema = z.array(returnUserSchema);
 
 const userLoginSchema = z.object({
   email: z.string().max(45),

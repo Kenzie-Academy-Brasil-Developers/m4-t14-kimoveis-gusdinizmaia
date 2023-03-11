@@ -9,9 +9,14 @@ const getSchedulesByRealEstateService = async (id: number): Promise<any> => {
   const realEstates = await repoRealEstate
     .createQueryBuilder("realEstate")
     .select(["address", "category", "schedule", "realEstate", "user"])
-    .innerJoin("realEstate.schedule", "schedule", "schedule.realEstate = :id", {
-      id: id,
-    })
+    .innerJoin(
+      "realEstate.schedules",
+      "schedule",
+      "schedule.realEstate = :id",
+      {
+        id: id,
+      }
+    )
     .leftJoin("schedule.user", "user", "schedule.user = user.id")
     .leftJoin("realEstate.address", "address")
     .leftJoin("realEstate.category", "category")

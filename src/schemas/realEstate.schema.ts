@@ -13,7 +13,7 @@ const realEstateSchema = realEstateCreateSchema.extend({
   id: z.number(),
   sold: z.boolean(),
   createdAt: z.string(),
-  updateAt: z.string(),
+  updatedAt: z.string(),
   address: addressSchema,
   categoryId: categorySchema.optional(),
 });

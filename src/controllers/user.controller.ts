@@ -45,7 +45,7 @@ const deleteUserController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const id = req.user.id;
+  const id = parseInt(req.params.id);
 
   await deleteUserService(id);
 

@@ -1,6 +1,7 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Address, Category, RealEstate } from "../../entities";
+import { AppError } from "../../errors/appError";
 import {
   iRealEstate,
   iRealEstateCreate,
@@ -14,20 +15,27 @@ const postRealEstateService = async (
     AppDataSource.getRepository(RealEstate);
   const repoAddress: Repository<Address> = AppDataSource.getRepository(Address);
 
+  // const findAddress = await repoAddress.findOneBy(realEstate.address);
+
+  // if (findAddress) {
+  //   throw new AppError("Address already exists", 409);
+  // }
+
   const newAddress = repoAddress.create(realEstate.address);
 
   await repoAddress.save(newAddress);
 
   const category = await findId(Category, realEstate.categoryId!, "Category");
 
-  const newRealEstate = await repoRealEstate
-    .createQueryBuilder()
-    .insert()
-    .values([{ ...realEstate, address: newAddress, category: category! }])
-    .returning("*")
-    .execute();
+  const newRealEstate = repoRealEstate.create({
+    ...realEstate,
+    address: newAddress,
+    category: category,
+  });
 
-  return newRealEstate.raw[0];
+  await repoRealEstate.save(newRealEstate);
+
+  return newRealEstate;
 };
 
 export { postRealEstateService };
