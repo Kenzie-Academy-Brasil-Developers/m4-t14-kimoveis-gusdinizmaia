@@ -23,7 +23,7 @@ const postLoginService = async (user: iUserLogin) => {
   }
 
   const token = jwt.sign(
-    { email: findUser.email },
+    { admin: findUser.admin },
     String(process.env.SECRET_KEY!),
     { expiresIn: process.env.EXPIRES_IN, subject: String(findUser.id) }
   );

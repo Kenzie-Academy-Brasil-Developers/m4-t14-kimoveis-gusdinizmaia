@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { AppError } from "../errors/appError";
-import jwt from "jsonwebtoken";
+import jwt, { decode } from "jsonwebtoken";
 import "dotenv/config";
 
 const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
@@ -17,7 +17,10 @@ const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
       throw new AppError(err.message, 401);
     }
 
-    req.user = { id: Number(decoded.sub) };
+    req.user = {
+      id: Number(decoded.sub),
+      admin: decoded.admin,
+    };
   });
 
   return next();

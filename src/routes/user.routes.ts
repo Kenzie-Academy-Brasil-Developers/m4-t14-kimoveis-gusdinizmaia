@@ -13,6 +13,7 @@ import { verifyUserExist } from "../middlewares/verifyUserExist.middleware";
 import { verifyToken } from "../middlewares/verifyToken.middleware";
 import { verifyUniqueEmail } from "../middlewares/verifyUniqueEmail.middleware";
 import { userCreateSchema, userPatchSchema } from "../schemas/user.schema";
+import { verifyGetUsers } from "../middlewares/verifyGetUsers.middleware";
 
 const userRoutes = Router();
 
@@ -22,7 +23,7 @@ userRoutes.post(
   verifyUniqueEmail,
   postUserController
 );
-userRoutes.get("", verifyToken, verifyAdmin, getAllUsersController);
+userRoutes.get("", verifyToken, verifyGetUsers, getAllUsersController);
 userRoutes.patch(
   "/:id",
   verifyToken,
