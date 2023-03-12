@@ -17,6 +17,7 @@ realEstateRoutes.post(
   verifyToken,
   verifyAdmin,
   verifyData(realEstateCreateSchema),
+  verifyUniqueKey(RealEstate, "address", "Address"),
   postRealEstateController
 );
 realEstateRoutes.get("", getAllRealEstatesController);

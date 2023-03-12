@@ -34,8 +34,8 @@ userRoutes.patch(
 userRoutes.delete(
   "/:id",
   verifyToken,
-  verifyAdmin,
   verifyUserExist,
+  verifyAdmin,
   deleteUserController
 );
 

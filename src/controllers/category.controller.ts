@@ -1,4 +1,6 @@
 import { Request, Response } from "express";
+import { AppDataSource } from "../data-source";
+import { User } from "../entities";
 import {
   iCategory,
   iRealEstateByCategory,
@@ -12,6 +14,12 @@ const postCategoryController = async (
   res: Response
 ): Promise<Response> => {
   const category = req.body;
+
+  // const userRepo = AppDataSource.getRepository(User);
+
+  // const user = await userRepo.find();
+
+  // console.log(req.user.id, user);
 
   const newCategory: iCategory = await postCategoryService(category);
 

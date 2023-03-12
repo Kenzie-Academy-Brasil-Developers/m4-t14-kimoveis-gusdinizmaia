@@ -21,6 +21,7 @@ scheduleRoutes.post(
   verifyData(scheduleCreateSchema),
   verifyDateSchedule,
   verifyUniqueShedule,
+  verifyDayAndHour,
   postScheduleController
 );
 scheduleRoutes.get(
@@ -28,7 +29,6 @@ scheduleRoutes.get(
   verifyToken,
   verifyAdmin,
   verifyExist(RealEstate, "RealEstate"),
-  verifyDayAndHour,
   getSchedulesByRealEstateController
 );
 

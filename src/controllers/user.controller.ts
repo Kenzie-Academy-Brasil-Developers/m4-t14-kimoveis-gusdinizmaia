@@ -1,8 +1,5 @@
 import { Request, Response } from "express";
-import {
-  iReturnUser,
-  iReturnUserWithAdmin,
-} from "../interfaces/user.interface";
+import { iReturnUser } from "../interfaces/user.interface";
 import { deleteUserService } from "../services/user/deleteUser.service";
 import { getAllUsersService } from "../services/user/getAllUsers.service";
 import { patchUserService } from "../services/user/patchUser.service";
@@ -14,9 +11,7 @@ const postUserController = async (
 ): Promise<Response> => {
   const newUser = req.body;
 
-  const user: iReturnUser | iReturnUserWithAdmin = await postUserService(
-    newUser
-  );
+  const user: iReturnUser = await postUserService(newUser);
 
   return res.status(201).json(user);
 };

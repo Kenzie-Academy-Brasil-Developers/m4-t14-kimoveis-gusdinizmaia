@@ -7,7 +7,6 @@ import {
   iRealEstateCreate,
 } from "../../interfaces/realEstate.interface";
 import { findId } from "../../middlewares/findId.middleware";
-import { realEstateCreateSchema } from "../../schemas/realEstate.schema";
 
 const postRealEstateService = async (
   realEstate: iRealEstateCreate
