@@ -34,7 +34,7 @@ class RealEstate {
   @UpdateDateColumn({ type: "date" })
   updatedAt: string;
 
-  @OneToOne(() => Address, (address) => address.realEstate, { nullable: false })
+  @OneToOne(() => Address, (address) => address.realEstate)
   @JoinColumn()
   @Unique(["address"])
   address: Address;

@@ -15,12 +15,6 @@ const postCategoryController = async (
 ): Promise<Response> => {
   const category = req.body;
 
-  // const userRepo = AppDataSource.getRepository(User);
-
-  // const user = await userRepo.find();
-
-  // console.log(req.user.id, user);
-
   const newCategory: iCategory = await postCategoryService(category);
 
   return res.status(201).json(newCategory);
